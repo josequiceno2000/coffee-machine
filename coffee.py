@@ -2,7 +2,7 @@ class CoffeeMachine:
     def __init__(self):
         self._water = 300 # ml
         self._milk = 200 # ml
-        self._coffee = 100 # ml
+        self._coffee = 100 # g
         self._money = 0 # dollars
         self._drinks = ["espresso", "latte", "cappuccino"]
         self._actions = ["off", "report"]
@@ -24,6 +24,19 @@ class CoffeeMachine:
         elif user_choice == "latte": pass
         elif user_choice == "cappuccino": pass
         elif user_choice == "off": pass
-        elif user_choice == "report": pass
+        elif user_choice == "report": self.print_report()
+    
+    def print_report(self):
+        print(("=" * 30) + " REPORT " + ("=" * 30))
+        print()
+        print(f"WATER: {self._water}ml".center(68))
+        print()
+        print(f"MILK: {self._milk}ml".center(68))
+        print()
+        print(f"COFFEE: {self._coffee}g".center(68))
+        print()
+        print(f"MONEY: ${self._money:.2f}".center(68))
+        print()
+        print("=" * 68)
         
         
