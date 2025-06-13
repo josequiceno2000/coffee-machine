@@ -103,11 +103,38 @@ class CoffeeMachine:
         Attempts a monetary transaction based on the price and the coins the user inserts.
         """
         transaction_successful = False
+        transaction_total = 0.00
 
         print()
         print("=" * 68)
         print("||" + (" " * 22) + "PLEASE INSERT COINS." + (" " * 22) + "||")
         print("=" * 68)
+
+        for coin, value in self._coins.items():
+            print()
+            print(f"How many {coin}: ".center(68))
+            print()
+            transaction_total += float(input("".center(32))) * value
+            print()
+            print(("*" * 34).center(68))
+            print()
+            print(f"YOUR TOTAL SO FAR: ${transaction_total:.2f}".center(68))
+            print()
+            print(("*" * 34).center(68))
+            print()
+        
+        if transaction_total >= price:
+            print()
+            print("=" * 68)
+            print("||" + (" " * 21) + "TRANSACTION SUCCESSFUL" + (" " * 21) + "||")
+            print("=" * 68)
+            transaction_successful = True
+        else:
+            print()
+            print("=" * 68)
+            print("||" + (" " * 21) + "⛝ TRANSACTION FAILED ⛝" + (" " * 21) + "||")
+            print("=" * 68)
+
 
         return transaction_successful
 
