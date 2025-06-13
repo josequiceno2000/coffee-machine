@@ -53,7 +53,7 @@ class CoffeeMachine:
         if user_choice in self._drinks:
             if self.check_resources_sufficient(user_choice):
                 drink_price = self._drinks[user_choice]["price"][0]
-                if self.insert_coins(drink_price):
+                if self.complete_transaction(drink_price):
                     # FIXME: Make this work later
                     print("PASSS")
                 else:
@@ -98,7 +98,7 @@ class CoffeeMachine:
         return sufficient_resources
 
     
-    def insert_coins(self, price: float) -> bool:
+    def complete_transaction(self, price: float) -> bool:
         """
         Attempts a monetary transaction based on the price and the coins the user inserts.
         """
@@ -114,7 +114,17 @@ class CoffeeMachine:
             print()
             print(f"How many {coin}: ".center(68))
             print()
-            transaction_total += float(input("".center(32))) * value
+            try:
+                transaction_total += int(input("".center(32))) * value
+            except ValueError:
+                print()
+                print("=" * 100)
+                print("ERROR: Please enter a whole number (e.g. '1', '2'))")
+                print("=" * 100)
+                print()
+                print(f"How many {coin}: ".center(68))
+                print()
+                transaction_total += float(input("".center(32))) * value
             print()
             print(("*" * 34).center(68))
             print()
