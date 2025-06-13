@@ -2,26 +2,28 @@ import time
 
 class CoffeeMachine:
     def __init__(self):
-        self._turned_on = True;
-        self._water = 300 # ml
-        self._milk = 200 # ml
-        self._coffee = 100 # g
+        self._turned_on = True
         self._money = 0 # dollars
+        self._resources = {
+            "water": [300, "ml"],
+            "coffee": [100, "g"],
+            "milk": [200, "ml"],
+        }
         self._drinks = {
             "espresso": {
-                "water": 50,
-                "coffee": 18,
-                "milk": 0,
+                "water": [50, "ml"],
+                "coffee": [18, "g"],
+                "milk": [0, "ml"],
             }, 
             "latte": {
-                "water": 200,
-                "coffee": 24,
-                "milk": 150,
+                "water": [200, "ml"],
+                "coffee": [24, "g"],
+                "milk": [150, "ml"],
             }, 
             "cappuccino": {
-                "water": 250,
-                "coffee": 24,
-                "milk": 100,
+                "water": [250, "ml"],
+                "coffee": [24, "g"],
+                "milk": [100, "ml"],
             },
             }
         self._actions = ["off", "report"]
@@ -39,14 +41,30 @@ class CoffeeMachine:
                 print("=" * 100)
                 print()
 
-        if user_choice == "espresso": pass
-        elif user_choice == "latte": pass
-        elif user_choice == "cappuccino": pass
-        elif user_choice == "off": self.turn_off()
-        elif user_choice == "report": self.print_report()
+        if user_choice in self._drinks:
+            return self.check_resources_sufficient(user_choice)
+        
+        elif user_choice == "report": 
+            self.print_report()
+        elif user_choice == "off": 
+            self.turn_off()
     
-    def check_resources_sufficient(self, drink str) -> bool:
-        pass 
+    def check_resources_sufficient(self, drink: str) -> bool:
+        print()
+        print("=" * 68)
+        print("||" + (" " * 21) + " CHECKING RESOURCES..." + (" " * 21) + "||")
+        print("=" * 68)
+
+        print()
+
+        for resource, quantity_and_unit in self._drinks[drink].items():
+            quantity, unit = quantity_and_unit[0], quantity_and_unit[1]
+            print(f"\t\tDrink requires {quantity} {unit} of {resource}...", end="\t")
+            if self._resources[resource][0] >= quantity:
+                print("🗹")
+            else: 
+                print("⛝ [INSUFFICIENT]")
+        return True
     
     def print_report(self) -> None:
         """
