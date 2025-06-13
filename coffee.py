@@ -1,5 +1,3 @@
-import time
-
 class CoffeeMachine:
     def __init__(self):
         self._turned_on = True
@@ -54,8 +52,13 @@ class CoffeeMachine:
             if self.check_resources_sufficient(user_choice):
                 drink_price = self._drinks[user_choice]["price"][0]
                 if self.complete_transaction(drink_price):
-                    # FIXME: Make this work later
-                    print("PASSS")
+                    print()
+                    print("=" * 68)
+                    print()
+                    print(f"Enjot your {user_choice} ☕️!".center(68))
+                    print()
+                    print("=" * 68)
+                    print()
                 else:
                     # FIXME: Make this work later
                     print("FAILLL")
@@ -76,7 +79,6 @@ class CoffeeMachine:
         print("=" * 68)
         print("||" + (" " * 21) + " CHECKING RESOURCES..." + (" " * 21) + "||")
         print("=" * 68)
-
         print()
 
         for resource, quantity_and_unit in self._drinks[drink].items():
@@ -151,7 +153,7 @@ class CoffeeMachine:
 
     def calculate_change(self, price: float, transaction_total: float, transaction_successful: bool) -> None:
         """
-        Calculates change to be returned to user.
+        Calculates and prints change to be returned to user.
         """
         if not transaction_successful:
             print("=" * 68)
@@ -193,7 +195,7 @@ class CoffeeMachine:
         self._turned_on = False
         print()
         print("=" * 68)
-        print("||" + (" " * 19) + "MACHINE POWERING DOWN..." + (" " * 19) + "||")
+        print("||" + (" " * 20) + "MACHINE POWERING DOWN..." + (" " * 20) + "||")
         print("=" * 68)
         return self._turned_on
         
