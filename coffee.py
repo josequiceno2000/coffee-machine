@@ -1,5 +1,8 @@
+import time
+
 class CoffeeMachine:
     def __init__(self):
+        self._turned_on = True;
         self._water = 300 # ml
         self._milk = 200 # ml
         self._coffee = 100 # g
@@ -12,7 +15,7 @@ class CoffeeMachine:
         # User choices are: espresso, latte, cappuccino, off, report
         user_choice = ""
         while not (user_choice in self._drinks or user_choice in self._actions):
-            user_choice = input("What would you like (espresso/latte/cappuccino)?\n> ").lower()
+            user_choice = input("\nWhat would you like (espresso/latte/cappuccino)?\n> ").lower()
             if not (user_choice in self._drinks or user_choice in self._actions):
                 print()
                 print("=" * 100)
@@ -23,7 +26,7 @@ class CoffeeMachine:
         if user_choice == "espresso": pass
         elif user_choice == "latte": pass
         elif user_choice == "cappuccino": pass
-        elif user_choice == "off": pass
+        elif user_choice == "off": self.turn_off()
         elif user_choice == "report": self.print_report()
     
     def print_report(self):
@@ -38,5 +41,13 @@ class CoffeeMachine:
         print(f"MONEY: ${self._money:.2f}".center(68))
         print()
         print("=" * 68)
+    
+    def turn_off(self):
+        self._turned_on = False
+        print()
+        print("=" * 68)
+        print("||" + (" " * 19) + "MACHINE POWERING DOWN..." + (" " * 19) + "||")
+        print("=" * 68)
+        return self._turned_on
         
         
