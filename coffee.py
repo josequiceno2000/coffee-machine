@@ -3,29 +3,38 @@ import time
 class CoffeeMachine:
     def __init__(self):
         self._turned_on = True
-        self._money = 0 # dollars
         self._resources = {
             "water": [300, "ml"],
             "coffee": [100, "g"],
             "milk": [200, "ml"],
+            "money": [0, "$"],
         }
         self._drinks = {
             "espresso": {
                 "water": [50, "ml"],
                 "coffee": [18, "g"],
                 "milk": [0, "ml"],
+                "price": [1.50, "$"],
             }, 
             "latte": {
                 "water": [200, "ml"],
                 "coffee": [24, "g"],
                 "milk": [150, "ml"],
+                "price": [2.50, "$"],
             }, 
             "cappuccino": {
                 "water": [250, "ml"],
                 "coffee": [24, "g"],
                 "milk": [100, "ml"],
+                "price": [3.00, "$"],
             },
-            }
+        }
+        self._coins = {
+            "quarters": 0.25,
+            "dimes": 0.10,
+            "nickels": 0.05,
+            "pennies": 0.01,
+        }
         self._actions = ["off", "report"]
         
     
@@ -42,14 +51,27 @@ class CoffeeMachine:
                 print()
 
         if user_choice in self._drinks:
-            return self.check_resources_sufficient(user_choice)
-        
+            if self.check_resources_sufficient(user_choice):
+                drink_price = self._drinks[user_choice]["price"][0]
+                if self.insert_coins(drink_price):
+                    # FIXME: Make this work later
+                    print("PASSS")
+                else:
+                    # FIXME: Make this work later
+                    print("FAILLL")
+                    
         elif user_choice == "report": 
             self.print_report()
         elif user_choice == "off": 
             self.turn_off()
     
     def check_resources_sufficient(self, drink: str) -> bool:
+        """
+        Checks that there enough resources to make the given drink.
+        """
+
+        sufficient_resources = True
+
         print()
         print("=" * 68)
         print("||" + (" " * 21) + " CHECKING RESOURCES..." + (" " * 21) + "||")
@@ -58,13 +80,37 @@ class CoffeeMachine:
         print()
 
         for resource, quantity_and_unit in self._drinks[drink].items():
+            if resource == "price":
+                continue
+
             quantity, unit = quantity_and_unit[0], quantity_and_unit[1]
-            print(f"\t\tDrink requires {quantity} {unit} of {resource}...", end="\t")
+            
+            description = f"Drink requires {quantity} {unit} of {resource}..."
+            
+            print(f"\t\t{description:<40}", end="")
+            
             if self._resources[resource][0] >= quantity:
                 print("🗹")
             else: 
                 print("⛝ [INSUFFICIENT]")
-        return True
+                sufficient_resources = False
+
+        return sufficient_resources
+
+    
+    def insert_coins(self, price: float) -> bool:
+        """
+        Attempts a monetary transaction based on the price and the coins the user inserts.
+        """
+        transaction_successful = False
+
+        print()
+        print("=" * 68)
+        print("||" + (" " * 22) + "PLEASE INSERT COINS." + (" " * 22) + "||")
+        print("=" * 68)
+
+        return transaction_successful
+
     
     def print_report(self) -> None:
         """
