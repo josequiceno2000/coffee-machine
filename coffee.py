@@ -7,7 +7,23 @@ class CoffeeMachine:
         self._milk = 200 # ml
         self._coffee = 100 # g
         self._money = 0 # dollars
-        self._drinks = ["espresso", "latte", "cappuccino"]
+        self._drinks = {
+            "espresso": {
+                "water": 50,
+                "coffee": 18,
+                "milk": 0,
+            }, 
+            "latte": {
+                "water": 200,
+                "coffee": 24,
+                "milk": 150,
+            }, 
+            "cappuccino": {
+                "water": 250,
+                "coffee": 24,
+                "milk": 100,
+            },
+            }
         self._actions = ["off", "report"]
         
     
@@ -29,7 +45,14 @@ class CoffeeMachine:
         elif user_choice == "off": self.turn_off()
         elif user_choice == "report": self.print_report()
     
-    def print_report(self):
+    def check_resources_sufficient(self, drink str) -> bool:
+        pass 
+    
+    def print_report(self) -> None:
+        """
+        Prints out a report of the remaining resources and cash in the machine.
+        """
+
         print(("=" * 30) + " REPORT " + ("=" * 30))
         print()
         print(f"WATER: {self._water}ml".center(68))
@@ -42,7 +65,11 @@ class CoffeeMachine:
         print()
         print("=" * 68)
     
-    def turn_off(self):
+    def turn_off(self) -> bool:
+        """
+        Turns off the machine and prints a depowering message
+        """
+
         self._turned_on = False
         print()
         print("=" * 68)
