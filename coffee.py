@@ -145,8 +145,27 @@ class CoffeeMachine:
             print("||" + (" " * 21) + "⛝ TRANSACTION FAILED ⛝" + (" " * 21) + "||")
             print("=" * 68)
 
+        self.calculate_change(price, transaction_total, transaction_successful)
 
         return transaction_successful
+
+    def calculate_change(self, price: float, transaction_total: float, transaction_successful: bool) -> None:
+        """
+        Calculates change to be returned to user.
+        """
+        if not transaction_successful:
+            print("=" * 68)
+            print("||" + (" " * 20) + f"HERE IS ${transaction_total:.2f} IN CHANGE" + (" " * 20) + "||")
+            print("=" * 68)
+        elif (transaction_successful and transaction_total > price):
+            change = transaction_total - price
+            print("=" * 68)
+            print("||" + (" " * 20) + f" HERE IS ${change:.2f} IN CHANGE" + (" " * 20) + "||")
+            print("=" * 68)
+        else:
+            print("=" * 68)
+            print("||" + (" " * 27) + "NO CHANGE." + (" " * 27) + "||")
+            print("=" * 68)
 
     
     def print_report(self) -> None:
