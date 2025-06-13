@@ -4,7 +4,26 @@ class CoffeeMachine:
         self._milk = 200 # ml
         self._coffee = 100 # ml
         self._money = 0 # dollars
+        self._drinks = ["espresso", "latte", "cappuccino"]
+        self._actions = ["off", "report"]
+        
     
     def prompt_user(self) -> str:
-        user_choice = input("What would you like (espresso/latte/cappuccino)?\n> ").lower()
-        return user_choice
+        # User choices are: espresso, latte, cappuccino, off, report
+        user_choice = ""
+        while not (user_choice in self._drinks or user_choice in self._actions):
+            user_choice = input("What would you like (espresso/latte/cappuccino)?\n> ").lower()
+            if not (user_choice in self._drinks or user_choice in self._actions):
+                print()
+                print("=" * 100)
+                print("ERROR: Please specify a valid drink or action (e.g. 'espresso')")
+                print("=" * 100)
+                print()
+
+        if user_choice == "espresso": pass
+        elif user_choice == "latte": pass
+        elif user_choice == "cappuccino": pass
+        elif user_choice == "off": pass
+        elif user_choice == "report": pass
+        
+        
